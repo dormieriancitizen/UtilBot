@@ -1,6 +1,5 @@
-import os, time
-os.system("pip uninstall discord")
-os.system("pip uninstall discord-py")
+import os, time, sys
+
 import discord
 
 from colorama import init

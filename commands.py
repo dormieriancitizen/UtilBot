@@ -1,5 +1,5 @@
 import time
-import cmd.nuke, cmd.spam, cmd.dofancymath
+import cmd.nuke, cmd.spam, cmd.dofancymath,cmd.lag
 
 async def echo(args,message,self):
   if not self.ver:
@@ -28,6 +28,10 @@ async def execute(args,message,self):
   else:
     return "haha no arbitary code execution is very dangerous"
 
+async def getslash(args,message,self):
+  async for command in message.slash_commands():  
+    print(command.name)
+
 commandlist = {
   "echo":echo,
   "ping":ping,
@@ -36,4 +40,6 @@ commandlist = {
   "thread":thread,
   "exec":execute,
   "spam":cmd.spam.spam,
+  "getslash":getslash,
+  "lag":cmd.lag.lag
 }

@@ -1,45 +1,27 @@
-import time
-import cmd.nuke, cmd.spam, cmd.dofancymath,cmd.lag
-
-async def echo(args,message,self):
-  if not self.ver:
-      answer = f"{message.author.mention} ran a command and {self.user.mention} bears no responsiblity \n {' '.join(args)}"
-  else:
-      answer = ' '.join(args)
-  return(answer)
-  
-
-async def ping(args,message,self):
-  return("pong")
-
-
-async def thread(args,message,self):
-  if self.ver:
-    messages = await message.channel.history(limit=int(args[0])+1).flatten()
-    messages.pop(0)
-    for toThread in messages:
-      await toThread.channel.create_thread(name="Thread", minutes=60, message=toThread)
-    return f"last {args[0]} messages threaded"
-
-async def execute(args,message,self):
-  if self.ver:
-    exec(" ".join(args))
-    return "Guillotined"
-  else:
-    return "haha no arbitary code execution is very dangerous"
+import cmd as c
 
 async def getslash(args,message,self):
-  async for command in message.slash_commands():  
-    print(command.name)
+  commands = [command async for command in message.channel.slash_commands()]
+  return commands
+    
+async def facepalm(args,message,self):
+  await message.channel.send("(－‸ლ)")
+  await message.delete()
+  return False
 
 commandlist = {
-  "echo":echo,
-  "ping":ping,
-  "math":cmd.dofancymath.domath,
-  "nuke":cmd.nuke.nuke,
-  "thread":thread,
-  "exec":execute,
-  "spam":cmd.spam.spam,
+  "echo":c.utils.echo,
+  "ping":c.botutils.ping,
+  "exec":c.botutils.execute,
+  "clear":c.botutils.clear,
+  "nuke":c.utils.nuke,
+  "spam":c.annoy.spam,
+  "lag":c.annoy.lag,
   "getslash":getslash,
-  "lag":cmd.lag.lag
+  "facepalm":facepalm,
+  "spoil":c.annoy.spoil,
+  "source":c.botutils.source,
+  "ghostping":c.annoy.ghostping,
+  "rockpaperscissors":c.fun.rockpaperscissors,
+  "rundetails":c.botutils.rundetails,
 }

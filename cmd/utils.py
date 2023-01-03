@@ -1,6 +1,13 @@
-import time
+import time, asyncio
 from colorama import init, Fore, Style
 init()
+
+async def echo(args,message,self):
+  if not self.ver:
+      answer = f"{message.author.mention} ran a command and {self.user.mention} bears no responsiblity \n {' '.join(args)}"
+  else:
+      answer = ' '.join(args)
+  return(answer)
 
 async def nuke(args,message,self):
   if self.ver:
@@ -8,10 +15,11 @@ async def nuke(args,message,self):
     messages.pop(0)
     for toDel in messages:
       try:
-        time.sleep(0.1)
+        await asyncio.sleep(0.3)
         await toDel.delete()
       except:
         print(f"{Fore.RED} Attempted to permlesss nuke {Style.RESET_ALL}")
     return f"last {args[0]} messages deleted"
   else:
     return("delete it urself bozo")
+

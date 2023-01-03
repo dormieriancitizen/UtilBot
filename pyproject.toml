@@ -11,6 +11,7 @@ replit = "^3.2.4"
 urllib3 = "^1.26.12"
 colorama = "^0.4.5"
 "discord.py-self" = "^1.9.2"
+discord = "^2.0.0"
 
 [tool.poetry.dev-dependencies]
 debugpy = "^1.6.2"

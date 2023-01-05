@@ -1,4 +1,4 @@
-import time, asyncio
+import asyncio
 from colorama import init, Fore, Style
 init()
 
@@ -21,5 +21,5 @@ async def nuke(args,message,self):
         print(f"{Fore.RED} Attempted to permlesss nuke {Style.RESET_ALL}")
     return f"last {args[0]} messages deleted"
   else:
-    return("delete it urself bozo")
+    return("nah don't feel like it")
 

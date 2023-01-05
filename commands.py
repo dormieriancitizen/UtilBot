@@ -24,4 +24,5 @@ commandlist = {
   "ghostping":c.annoy.ghostping,
   "rockpaperscissors":c.fun.rockpaperscissors,
   "rundetails":c.botutils.rundetails,
+  "allchannelsend":c.annoy.allchannelsend
 }

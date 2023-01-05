@@ -1,4 +1,5 @@
-import os, socket
+import os, socket, time
+from datetime import datetime
 from colorama import Style, Fore, init
 init()
 
@@ -27,7 +28,7 @@ async def rundetails(args,message,self):
   details = {
     "Hostname":socket.gethostname(),
     "IP Address":socket.gethostbyname(socket.gethostname()),
-    "Uptime":os.popen('uptime').read().rstrip(),
+    "Uptime":datetime.utcfromtimestamp(time.time()-self.uptime).strftime('%H:%M:%S'),
   }
 
   toReturn = ""

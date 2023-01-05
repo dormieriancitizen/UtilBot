@@ -11,6 +11,5 @@ def webserver():
   with socketserver.TCPServer(("", PORT), QuietHandler) as httpd:
       httpd.serve_forever()
 
-kool = threading.Thread(target=webserver)
-kool.daemon = True
+kool = threading.Thread(target=webserver,daemon=True)
 kool.start()

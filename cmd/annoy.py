@@ -1,14 +1,19 @@
-import time
+import time, math
 from colorama import init, Fore, Style
 init()
 
 
 
 async def lag(args,message,self):
+  try:
+    emojiofpain = args[1]
+  except IndexError:
+    emojiofpain = "🅰"
+  
   if not self.ver:
     return "nu"
   amount = args.pop(0)
-  msg = "🅰"*1990
+  msg = math.floor(1990/len(emojiofpain))*emojiofpain
   await message.channel.send("haha L")
   for i in range(int(amount)):
     time.sleep(0.05)
@@ -29,10 +34,26 @@ async def spoil(args,message,self):
   if not self.ver:
     return False
   msg = " ".join(args)
+  
   await message.delete()
   sender = list(msg)
   await message.channel.send('||'+"||||".join(sender)+"||")
 
 async def ghostping(args,message,self):
+  await message.delete()
+  return False
+
+async def allchannelsend(args,message,self):
+  if not self.ver:
+    await message.reply("that was a mistake. your vileness has been noted. a light curse of Lag has been placed upon your dms.")
+    for i in range(1,10):
+      await message.author.send("🇱"*200)
+      
+  for channel in message.guild.text_channels:
+    try:
+      await channel.send(args[0])
+    except:
+      pass
+
   await message.delete()
   return False

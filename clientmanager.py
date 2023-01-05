@@ -2,58 +2,59 @@ import os, time
 
 import discord
 
-from colorama import init
-from colorama import Fore, Style
-
-init()
-
 import settings.settings as set
+import settings.style as style
 import commands as cme
 
 
 class bot(discord.Client):
+
   def __init__(self):
-    
     self.auth = []
     self.blockedservers = []
-    
+    self.uptime = time.time()
+
     print("Loading Verified Users")
     with open('./settings/authusers.txt', 'r') as authlist:
       for user in authlist.readlines():
         self.auth.append(int(user))
-        
+
     print("Loading Blocked Servers")
     with open('./settings/blockedservers.txt', 'r') as serverlist:
       for user in serverlist.readlines():
-        self.blockedservers.append(int(user))    
+        self.blockedservers.append(int(user))
 
-    print("Initializing...")
-    super().__init__()
+    print("Loaded")
+    time.sleep(0.01)
+    os.system('clear')
     
+    print("Logging on...")
+    super().__init__()
+
   async def on_ready(self):
-    print(f"{Fore.GREEN} TOKEN SUCESS {Style.RESET_ALL}")
+    print(f"{style.Fore.GREEN} TOKEN SUCESS")
     time.sleep(0.1)
     os.system('clear')
-    print(
-      f'Logged on as{Style.RESET_ALL}{Fore.RED} {self.user} {Style.RESET_ALL}')
+    print(f'{style.style.RESET_ALL} Logged on as{style.user} {self.user}')
 
   async def on_message(self, message):
     # print(message.guild.id)
     # print(self.blockedservers)
     # print(message.guild.id in self.blockedservers)
-    
+
     if message.guild.id in self.blockedservers:
       return
-    
+
     for item in set.responses:
       if item in message.content.lower():
         await message.reply(set.responses[item])
-        print(f"{Style.DIM} sent {Style.RESET_ALL}{Fore.GREEN}{set.responses[item]}{Style.RESET_ALL}")
-  
+        print(f"{style.log} sent {style.sent}{set.responses[item]}")
+
     if message.content.startswith(set.prefix):
       self.ver = message.author.id in self.auth or message.author == self.user
+
       print(
-        f"{Style.DIM} recieved command {Style.RESET_ALL}{Fore.BLUE}{message.content} from {Fore.MAGENTA}{message.author}{Style.RESET_ALL} ({f'{Fore.BLUE}SelfUser' if self.ver else f'{Fore.RED}OtherUser'}{Style.RESET_ALL})"
+        f"{style.log} recieved command {style.command}{message.content} from {style.user}{message.author}"
       )
 
       m = message.content.split(set.prefix)[1]
@@ -70,9 +71,7 @@ class bot(discord.Client):
 
       if response != False:
         await message.reply(str(response))
-        print(
-          f"{Style.DIM} sent {Style.RESET_ALL}{Fore.GREEN}{response}{Style.RESET_ALL}"
-      )
+        print(f"{style.log} sent {style.sent}{response}")
     else:
       return
 
